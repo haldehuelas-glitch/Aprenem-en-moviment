@@ -1,322 +1,61 @@
 from pathlib import Path
+import re
 
-html = r'''<!DOCTYPE html>
-<html lang="ca">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101c2c">
-<meta name="description" content="Apunts, recursos i eines per estudiar Pedagogia i principis didàctics de l'activitat física i l'esport a 2n de CAFE.">
-<title>Aprenem en moviment · Zona d'estudi CAFE</title>
-<style>
-:root{
-  --bg:#f5f7fb;--paper:#fff;--ink:#172236;--muted:#65718a;--line:#e2e8f0;
-  --navy:#101c2c;--navy2:#1b2b43;--lime:#c7f36b;--violet:#7658e8;--cyan:#c8f5f2;
-  --shadow:0 14px 40px rgba(16,28,44,.08);--radius:22px
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-a{color:inherit}
-button,input,select{font:inherit}
-button,a,input,select{outline-offset:3px}
-button{cursor:pointer}
-.topbar{position:sticky;top:0;z-index:20;background:rgba(16,28,44,.96);backdrop-filter:blur(12px);color:#fff;border-bottom:1px solid #ffffff1c}
-.navwrap{max-width:1180px;margin:auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:850;letter-spacing:-.4px}
-.brandmark{width:37px;height:37px;border-radius:12px;background:var(--lime);color:var(--navy);display:grid;place-items:center;font-size:21px}
-.brand small{display:block;color:#aebbd0;font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase}
-.navlinks{display:flex;align-items:center;gap:20px}
-.navlinks a{font-size:13px;text-decoration:none;color:#e2e9f3;font-weight:650}
-.navlinks a:hover{color:var(--lime)}
-.menu-btn{display:none;background:transparent;color:white;border:1px solid #ffffff40;border-radius:10px;padding:8px 10px}
-.hero{background:radial-gradient(ellipse at 85% 15%,#7658e866,transparent 34%),linear-gradient(125deg,var(--navy),#1d3450);color:#fff;overflow:hidden}
-.hero-inner{max-width:1180px;margin:auto;padding:65px 22px 58px;display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff30;background:#ffffff0d;border-radius:999px;padding:7px 12px;color:#e4eaff;font-size:12px;font-weight:750;letter-spacing:.7px;text-transform:uppercase}
-.eyebrow i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--lime)}
-h1{font-size:clamp(38px,5.5vw,68px);letter-spacing:-2.8px;line-height:.99;margin:20px 0 18px;max-width:680px}
-h1 span{color:var(--lime)}
-.hero p{max-width:620px;color:#c4d0e1;font-size:17px;margin:0 0 25px}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border:0;border-radius:12px;padding:12px 17px;font-weight:800;font-size:14px;transition:transform .15s,opacity .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn-primary{background:var(--lime);color:var(--navy)}
-.btn-ghost{color:#fff;border:1px solid #ffffff40;background:#ffffff0c}
-.hero-card{background:#ffffff0d;border:1px solid #ffffff24;border-radius:26px;padding:23px;transform:rotate(1deg)}
-.hero-card-top{display:flex;justify-content:space-between;align-items:center;color:#c4d0e1;font-size:12px;font-weight:700}
-.live-pill{background:#c7f36b20;color:var(--lime);padding:5px 9px;border-radius:999px}
-.progress-title{font-size:22px;font-weight:850;letter-spacing:-.6px;margin:25px 0 5px}
-.hero-card p{font-size:13px;margin:0;color:#b9c7da}
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.mini{padding:14px;background:#ffffff0c;border:1px solid #ffffff14;border-radius:15px}
-.mini strong{font-size:24px;display:block;color:var(--lime)}
-.mini span{font-size:11px;color:#c4d0e1}
-main{max-width:1180px;margin:auto;padding:38px 22px 70px}
-.section{margin-top:45px}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:19px}
-.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--violet);font-weight:850}
-h2{font-size:clamp(25px,3vw,34px);letter-spacing:-1.1px;line-height:1.1;margin:6px 0}
-.section-head p{color:var(--muted);margin:7px 0 0;max-width:650px}
-.tag{font-size:11px;font-weight:800;border-radius:999px;padding:6px 9px;background:#f0edff;color:#6548d4;white-space:nowrap}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.quick{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:20px;text-decoration:none;box-shadow:0 5px 16px #17223606;transition:transform .18s,border-color .18s}
-.quick:hover{transform:translateY(-4px);border-color:#b9adff}
-.quick-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:#f0edff;font-size:22px;margin-bottom:16px}
-.quick:nth-child(2) .quick-icon{background:#effbdc}.quick:nth-child(3) .quick-icon{background:#ddf8f6}.quick:nth-child(4) .quick-icon{background:#fff0dc}
-.quick strong{display:block;font-size:15px;margin-bottom:5px}
-.quick p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
-.study-layout{display:grid;grid-template-columns:1fr 1fr;gap:17px}
-.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:23px;box-shadow:var(--shadow)}
-.panel h3{margin:0 0 7px;font-size:20px;letter-spacing:-.5px}
-.panel-intro{color:var(--muted);font-size:13px;margin:0 0 18px}
-.topic-list{display:grid;gap:10px}
-.topic{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px;text-decoration:none;transition:background .15s}
-.topic:hover{background:#f8f7ff}
-.topic-emoji{width:38px;height:38px;flex-shrink:0;border-radius:12px;background:#f0edff;display:grid;place-items:center;font-size:19px}
-.topic-copy{min-width:0;flex:1}
-.topic-copy strong{display:block;font-size:13px}
-.topic-copy small{display:block;color:var(--muted);font-size:11px}
-.arrow{font-size:18px;color:var(--violet)}
-.tool-box{border-radius:16px;background:#f6f8fc;padding:16px;margin-top:14px}
-.tool-box label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
-.tool-box select,.tool-box input{width:100%;border:1px solid #dce3ed;background:#fff;padding:11px 12px;border-radius:10px;color:var(--ink)}
-.tool-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.flashcard{background:var(--navy);color:#fff;border-radius:19px;padding:24px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;margin-top:15px}
-.flash-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--lime);font-weight:850}
-.flash-question{font-size:22px;line-height:1.25;font-weight:850;letter-spacing:-.5px;margin:18px 0}
-.flash-answer{color:#c8d3e3;font-size:14px;margin:0}
-.flash-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
-.small-btn{border:1px solid #dce3ed;background:#fff;color:var(--ink);border-radius:10px;padding:9px 12px;font-size:12px;font-weight:800}
-.flashcard .small-btn{border-color:#ffffff30;background:#ffffff12;color:white}
-.counter{font-size:12px;color:#c8d3e3}
-.quiz-question{font-size:17px;font-weight:800;margin:17px 0}
-.answers{display:grid;gap:9px}
-.answer-btn{text-align:left;border:1px solid var(--line);background:#fff;padding:12px 13px;border-radius:12px;font-size:13px;color:var(--ink)}
-.answer-btn:hover:not(:disabled){border-color:#9c8bea;background:#faf9ff}
-.answer-btn.correct{border-color:#7bbd43;background:#f1fbe7}
-.answer-btn.wrong{border-color:#e6a09a;background:#fff0ee}
-.feedback{min-height:22px;font-size:13px;font-weight:750;margin:12px 0 0}
-.feedback.good{color:#43851d}.feedback.bad{color:#b8443a}
-.quiz-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
-.score{font-size:12px;color:var(--muted);font-weight:750}
-.searchbar{display:flex;gap:10px;margin:20px 0 15px}
-.searchbar input{flex:1;min-width:0;border:1px solid #dce3ed;border-radius:12px;padding:13px 15px;background:white}
-.searchbar select{border:1px solid #dce3ed;border-radius:12px;padding:0 12px;background:white;color:var(--ink)}
-.doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.doc{background:white;border:1px solid var(--line);border-radius:17px;padding:17px;display:flex;flex-direction:column;min-height:190px;transition:transform .15s,border-color .15s}
-.doc:hover{transform:translateY(-3px);border-color:#b9adff}
-.doc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.pdf-icon{width:37px;height:37px;border-radius:11px;display:grid;place-items:center;background:#fff0ee;color:#b6443b;font-size:12px;font-weight:900}
-.doc-type{font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:850;color:var(--muted)}
-.doc h3{font-size:14px;line-height:1.35;margin:13px 0 6px}
-.doc p{font-size:12px;color:var(--muted);margin:0 0 14px;flex:1}
-.doc a{font-size:12px;font-weight:850;text-decoration:none;color:#6046d5}
-.no-results{grid-column:1/-1;padding:25px;text-align:center;border:1px dashed #cbd5e1;border-radius:15px;color:var(--muted)}
-.note{margin-top:17px;padding:14px 16px;border-radius:14px;background:#effbdc;color:#35551a;font-size:12px}
-.exam-banner{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;background:linear-gradient(110deg,#e8e4ff,#f3f0ff);border:1px solid #d9d0ff;border-radius:22px;padding:24px}
-.exam-banner h3{font-size:22px;margin:0 0 5px;letter-spacing:-.5px}
-.exam-banner p{font-size:13px;color:#615c7a;margin:0}
-.exam-banner .btn{background:var(--violet);color:white}
-footer{background:var(--navy);color:#c4d0e1;padding:28px 22px;text-align:center;font-size:12px}
-footer strong{color:white}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;z-index:50;display:none}
-.toast.show{display:block}
-[hidden]{display:none!important}
-@media(max-width:850px){
- .hero-inner{grid-template-columns:1fr;padding-top:48px}.hero-card{max-width:500px;transform:none}
- .quick-grid{grid-template-columns:repeat(2,1fr)}.doc-grid{grid-template-columns:repeat(2,1fr)}
- .study-layout{grid-template-columns:1fr}
-}
-@media(max-width:600px){
- .navwrap{padding:11px 16px}.menu-btn{display:block}.navlinks{display:none;position:absolute;top:62px;left:0;right:0;padding:16px 22px 20px;background:var(--navy);flex-direction:column;align-items:flex-start;gap:15px;border-bottom:1px solid #ffffff20}.navlinks.open{display:flex}
- .hero-inner{padding:44px 18px 40px;gap:28px}h1{letter-spacing:-1.8px}.hero p{font-size:15px}
- main{padding:25px 16px 50px}.section{margin-top:36px}.section-head{align-items:flex-start;flex-direction:column;gap:8px}
- .quick-grid{gap:10px}.quick{padding:15px}.quick p{font-size:11px}
- .panel{padding:17px}.doc-grid{grid-template-columns:1fr}.searchbar{flex-direction:column}.searchbar select{padding:12px}
- .exam-banner{grid-template-columns:1fr}.tool-row{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body>
-<header class="topbar">
-  <div class="navwrap">
-    <a class="brand" href="#inici" aria-label="Aprenem en moviment, inici">
-      <span class="brandmark">↗</span><span>Aprenem en moviment<small>Zona d'estudi · 2n CAFE</small></span>
-    </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks">☰ Menú</button>
-    <nav class="navlinks" id="navlinks">
-      <a href="#estudi">Estudiar</a><a href="#practica">Practicar</a><a href="#biblioteca">Documents</a><a href="#projecte">Projecte</a>
-    </nav>
-  </div>
-</header>
+path = Path("/mnt/data/index.html")
+html = path.read_text(encoding="utf-8")
 
-<section class="hero" id="inici">
-  <div class="hero-inner">
-    <div>
-      <span class="eyebrow"><i></i> Pedagogia i principis didàctics · 2n CAFE</span>
-      <h1>Estudia millor.<br><span>Aprèn en moviment.</span></h1>
-      <p>Els materials de l'assignatura, reunits en un sol lloc. Repassa els temes, posa't a prova amb preguntes i accedeix directament als documents de classe.</p>
-      <div class="actions"><a class="btn btn-primary" href="#practica">Comença a practicar ↘</a><a class="btn btn-ghost" href="#biblioteca">Explora els apunts →</a></div>
-    </div>
-    <aside class="hero-card" aria-label="Eines d'estudi disponibles">
-      <div class="hero-card-top"><span>EL TEU ESPAI D'ESTUDI</span><span class="live-pill">● Disponible</span></div>
-      <div class="progress-title">De llegir a recordar.</div>
-      <p>Combina teoria, preguntes i repàs actiu per preparar millor l'assignatura.</p>
-      <div class="mini-grid"><div class="mini"><strong>12</strong><span>PDFs al repositori</span></div><div class="mini"><strong>2</strong><span>Eines per practicar</span></div></div>
-    </aside>
-  </div>
-</section>
+# Replace the document library grid with themed accordion groups.
+start = html.index('    <div class="doc-grid" id="docGrid">')
+end = html.index('    <p id="noDocs"', start)
 
-<main>
-  <section class="section" id="estudi">
-    <div class="section-head"><div><div class="kicker">Per on comencem?</div><h2>Tria el teu següent pas</h2><p>Accedeix ràpidament al tipus de material que necessites avui.</p></div><span class="tag">Guia d'estudi</span></div>
-    <div class="quick-grid">
-      <a class="quick" href="#biblioteca"><div class="quick-icon">📚</div><strong>Consultar els apunts</strong><p>Obre els documents originals de l'assignatura.</p></a>
-      <a class="quick" href="#flashcards"><div class="quick-icon">🧠</div><strong>Memoritzar conceptes</strong><p>Practica amb targetes de pregunta i resposta.</p></a>
-      <a class="quick" href="#quiz"><div class="quick-icon">⚡</div><strong>Fer un mini test</strong><p>Respon preguntes i comprova el resultat al moment.</p></a>
-      <a class="quick" href="#repas"><div class="quick-icon">🗓️</div><strong>Organitzar el repàs</strong><p>Tria un tema i prepara una sessió d'estudi curta.</p></a>
-    </div>
-  </section>
-
-  <section class="section" id="practica">
-    <div class="section-head"><div><div class="kicker">Aprenentatge actiu</div><h2>Practica el que saps</h2><p>Eines senzilles per repassar. Les preguntes són de pràctica orientativa, no un examen oficial ni un resum exhaustiu dels PDFs.</p></div></div>
-    <div class="study-layout">
-      <article class="panel" id="flashcards">
-        <h3>Targetes de memòria</h3><p class="panel-intro">Llegeix la pregunta, intenta respondre sense mirar i després gira la targeta.</p>
-        <div class="tool-box"><label for="topicFilter">Filtra per tema</label><select id="topicFilter"><option value="tots">Tots els temes</option><option value="docencia">Competències docents</option><option value="tasques">Tasques motrius</option><option value="valors">Valors i educació física</option><option value="cooperacio">Cooperació</option><option value="gestio">Gestió de la classe</option></select></div>
-        <div class="flashcard">
-          <div><div class="flash-label" id="flashTopic">Concepte clau</div><div class="flash-question" id="flashQuestion">Què vol dir aprendre de manera activa?</div><p class="flash-answer" id="flashAnswer" hidden>Implica participar en el procés d'aprenentatge: pensar, prendre decisions, practicar i revisar què s'ha après.</p></div>
-          <div class="flash-actions"><span class="counter" id="flashCounter">Targeta 1</span><button class="small-btn" id="flipBtn">Mostra la resposta ↻</button><button class="small-btn" id="nextFlash">Següent →</button></div>
+new_library = '''    <div class="library-groups" id="docGrid">
+      <details class="library-group" data-category="docencia" open>
+        <summary><span class="folder-icon">📁</span><span class="group-title">01. Competències docents</span><span class="group-count">2 documents</span><span class="chevron">⌄</span></summary>
+        <div class="doc-grid">
+          <article class="doc" data-category="docencia" data-search="10 competencias docentes blazquez professor competències docents"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>10 competencias docentes · Blázquez</h3><p>Material sobre les competències docents.</p><a href="10%20competencias%20docentes%20Blazquez%20S%20(1).pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="docencia" data-search="principis competencies docents part 1 professorat"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>Principis de les competències docents · part 1</h3><p>Material sobre els principis de les competències docents.</p><a href="Principis%20de%20les%20competencies%20docents%20part%201.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
         </div>
-      </article>
-      <article class="panel" id="quiz">
-        <h3>Mini test de repàs</h3><p class="panel-intro">Una pregunta cada vegada. Tria una resposta i rep feedback immediat.</p>
-        <div class="tool-box"><div class="flash-label" style="color:#7658e8">PREGUNTA <span id="qNum">1</span> DE <span id="qTotal">6</span></div><div class="quiz-question" id="quizQuestion">Quin és l'objectiu d'una pregunta de repàs?</div><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p><div class="quiz-footer"><span class="score" id="score">Encerts: 0</span><button class="small-btn" id="nextQuestion" disabled>Següent pregunta →</button></div></div>
-      </article>
+      </details>
+
+      <details class="library-group" data-category="valors">
+        <summary><span class="folder-icon">📁</span><span class="group-title">02. Valors de l'esport</span><span class="group-count">6 documents</span><span class="chevron">⌄</span></summary>
+        <div class="doc-grid">
+          <article class="doc" data-category="valors" data-search="capacitat educativa activitat fisica edat escolar valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>Capacitat educativa de l'activitat física en edat escolar</h3><p>Material sobre la dimensió educativa de l'activitat física.</p><a href="Capacitat%20educativa%20activitat%20fisica%20en%20edat%20escolar%20%28VALORS%29.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="valors" data-search="respecte educacio fisica valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>El respecte en l'educació física</h3><p>Material sobre el respecte en el context educatiu.</p><a href="El%20Respecte%20en%20lEducaci%C3%B3%20F%C3%ADsica.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="valors" data-search="valors esport sociologica klaus heinemann"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>Els valors de l'esport · Klaus Heinemann</h3><p>Perspectiva sociològica sobre els valors de l'esport.</p><a href="Els%20Valors%20de%20lesport.%20Una%20perspectiva%20sociologica%20Klaus%20Heinemann.%20%281%29.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="valors" data-search="cooperacio treball equip col·laboracio"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>La cooperació i el treball en equip</h3><p>Material per treballar la cooperació i la col·laboració.</p><a href="La%20Cooperaci%C3%B3%20i%20el%20treball%20en%20equip.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="valors" data-search="esforç superacio personal valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>L'esforç i la superació personal</h3><p>Material sobre esforç i superació personal.</p><a href="V3%20LEsfor%C3%A7%20i%20la%20Superacio%20personal.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="valors" data-search="autonomia responsabilitat valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>L'autonomia i la responsabilitat</h3><p>Material sobre autonomia i responsabilitat personal.</p><a href="V4%20LAutonomia%20i%20la%20responsabilitat.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+        </div>
+      </details>
+
+      <details class="library-group" data-category="tasques">
+        <summary><span class="folder-icon">📁</span><span class="group-title">03. Tasques i conceptes</span><span class="group-count">2 documents</span><span class="chevron">⌄</span></summary>
+        <div class="doc-grid">
+          <article class="doc" data-category="tasques" data-search="conceptes diferencies relacions pedagogia educacio fisica"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Conceptes</span></div><h3>Conceptes, diferències i relacions</h3><p>Document de conceptes fonamentals de l'assignatura.</p><a href="Conceptes%2C%20diferencies%20i%20relacions..pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+          <article class="doc" data-category="tasques" data-search="teoria tasca tasca motriu disseny"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Tasques</span></div><h3>La teoria de la tasca</h3><p>Document de teoria sobre la tasca motriu.</p><a href="La%20teoria%20de%20la%20tasca.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+        </div>
+      </details>
+
+      <details class="library-group" data-category="gestio">
+        <summary><span class="folder-icon">📁</span><span class="group-title">04. Gestió de l'aula</span><span class="group-count">1 document</span><span class="chevron">⌄</span></summary>
+        <div class="doc-grid">
+          <article class="doc" data-category="gestio" data-search="gestion clase educacion fisica sebastiani 2011 gestió"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Gestió</span></div><h3>La gestión de la clase de EF · Sebastiani (2011)</h3><p>Document sobre la gestió de la classe d'educació física.</p><a href="La%20gesti%C3%B3n%20de%20la%20clase%20de%20EF%20Sebastiani%202011.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+        </div>
+      </details>
+
+      <details class="library-group" data-category="treball">
+        <summary><span class="folder-icon">📁</span><span class="group-title">05. Projectes i treballs</span><span class="group-count">1 document</span><span class="chevron">⌄</span></summary>
+        <div class="doc-grid">
+          <article class="doc" data-category="treball" data-search="instruccions treball pagina web projecte"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Projecte</span></div><h3>Instruccions del treball de pàgina web</h3><p>Document d'instruccions del projecte.</p><a href="S3C_Instruccions_Treball%20Pag%20Web.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+        </div>
+      </details>
     </div>
-  </section>
+'''
+html = html[:start] + new_library + html[end:]
 
-  <section class="section" id="repas">
-    <div class="section-head"><div><div class="kicker">Pla ràpid</div><h2>Prepara una sessió de repàs</h2><p>Genera una proposta breu segons el temps que tens i el tema que vols treballar.</p></div></div>
-    <div class="panel">
-      <div class="tool-row">
-        <div class="tool-box" style="margin-top:0"><label for="studyTopic">Tema a repassar</label><select id="studyTopic"><option>Competències docents</option><option>Gestió de la classe</option><option>Teoria de la tasca motriu</option><option>Valors en l'educació física</option><option>Cooperació i treball en equip</option><option>Conceptes i relacions</option></select></div>
-        <div class="tool-box" style="margin-top:0"><label for="studyTime">Temps disponible</label><select id="studyTime"><option value="15">15 minuts</option><option value="25" selected>25 minuts</option><option value="40">40 minuts</option><option value="60">60 minuts</option></select></div>
-      </div>
-      <button class="btn btn-primary" id="makePlan" style="margin-top:14px">Crear el meu pla ↗</button>
-      <div class="tool-box" id="planOutput" aria-live="polite" hidden></div>
-    </div>
-  </section>
-
-  <section class="section" id="biblioteca">
-    <div class="section-head"><div><div class="kicker">Materials de classe</div><h2>Biblioteca de documents</h2><p>Cerca per títol o filtra per categoria. Els enllaços obren els PDFs que hi ha al repositori públic.</p></div><span class="tag" id="docCount">12 documents</span></div>
-    <div class="searchbar"><input type="search" id="docSearch" placeholder="🔎 Cerca un document o tema..." aria-label="Cerca documents"><select id="docFilter" aria-label="Filtra per categoria"><option value="tots">Totes les categories</option><option value="docencia">Competències docents</option><option value="valors">Valors i respecte</option><option value="tasques">Tasques i conceptes</option><option value="gestio">Gestió de la classe</option><option value="treball">Treball del projecte</option></select></div>
-    <div class="doc-grid" id="docGrid">
-      <article class="doc" data-category="docencia" data-search="10 competencias docentes blazquez professor competències docents"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>10 competencias docentes · Blázquez</h3><p>Material sobre les competències docents.</p><a href="10%20competencias%20docentes%20Blazquez%20S%20(1).pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="capacitat educativa activitat fisica edat escolar valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>Capacitat educativa de l'activitat física en edat escolar</h3><p>Material sobre la dimensió educativa de l'activitat física.</p><a href="Capacitat%20educativa%20activitat%20fisica%20en%20edat%20escolar%20%28VALORS%29.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="tasques" data-search="conceptes diferencies relacions pedagogia educacio fisica"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Conceptes</span></div><h3>Conceptes, diferències i relacions</h3><p>Document de conceptes fonamentals de l'assignatura.</p><a href="Conceptes%2C%20diferencies%20i%20relacions..pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="respecte educacio fisica valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>El respecte en l'educació física</h3><p>Material sobre el respecte en el context educatiu.</p><a href="El%20Respecte%20en%20lEducaci%C3%B3%20F%C3%ADsica.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="valors esport sociologica klaus heinemann"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>Els valors de l'esport · Klaus Heinemann</h3><p>Perspectiva sociològica sobre els valors de l'esport.</p><a href="Els%20Valors%20de%20lesport.%20Una%20perspectiva%20sociologica%20Klaus%20Heinemann.%20%281%29.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="cooperacio treball equip col·laboracio"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>La cooperació i el treball en equip</h3><p>Material per treballar la cooperació i la col·laboració.</p><a href="La%20Cooperaci%C3%B3%20i%20el%20treball%20en%20equip.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="gestio" data-search="gestion clase educacion fisica sebastiani 2011 gestió"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Gestió</span></div><h3>La gestión de la clase de EF · Sebastiani (2011)</h3><p>Document sobre la gestió de la classe d'educació física.</p><a href="La%20gesti%C3%B3n%20de%20la%20clase%20de%20EF%20Sebastiani%202011.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="tasques" data-search="teoria tasca tasca motriu disseny"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Tasques</span></div><h3>La teoria de la tasca</h3><p>Document de teoria sobre la tasca motriu.</p><a href="La%20teoria%20de%20la%20tasca.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="docencia" data-search="principis competencies docents part 1 professorat"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>Principis de les competències docents · part 1</h3><p>Material sobre els principis de les competències docents.</p><a href="Principis%20de%20les%20competencies%20docents%20part%201.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="treball" data-search="instruccions treball pagina web projecte"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Projecte</span></div><h3>Instruccions del treball de pàgina web</h3><p>Document d'instruccions del projecte.</p><a href="S3C_Instruccions_Treball%20Pag%20Web.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="esforç superacio personal valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>L'esforç i la superació personal</h3><p>Material sobre esforç i superació personal.</p><a href="V3%20LEsfor%C3%A7%20i%20la%20Superacio%20personal.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-      <article class="doc" data-category="valors" data-search="autonomia responsabilitat valors"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Valors</span></div><h3>L'autonomia i la responsabilitat</h3><p>Material sobre autonomia i responsabilitat personal.</p><a href="V4%20LAutonomia%20i%20la%20responsabilitat.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-    </div>
-    <p id="noDocs" class="no-results" hidden>No s'han trobat documents. Prova una altra cerca o categoria.</p>
-    <div class="note">ℹ️ Les eines de repàs són orientatives i no substitueixen els materials originals, les explicacions del professorat ni les instruccions oficials de l'assignatura.</div>
-  </section>
-
-  <section class="section" id="projecte">
-    <div class="exam-banner"><div><h3>Una eina per estudiar, no només per llegir</h3><p>Consulta els documents, repassa conceptes i comprova què recordes. El contingut es pot ampliar a mesura que avanci l'assignatura.</p></div><a class="btn" href="#estudi">Torna a començar ↑</a></div>
-  </section>
-</main>
-<footer><strong>Aprenem en moviment</strong><br>Pedagogia i principis didàctics de l'activitat física i l'esport · 2n CAFE<br><span style="opacity:.75">Materials docents i documents originals atribuïts als seus autors.</span></footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-const $ = (id) => document.getElementById(id);
-
-// Mobile navigation
-const menuBtn = $('menuBtn'), navlinks = $('navlinks');
-menuBtn.addEventListener('click', () => {
-  const open = navlinks.classList.toggle('open');
-  menuBtn.setAttribute('aria-expanded', String(open));
-});
-navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navlinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
-}));
-
-// Flashcards: generic practice prompts; check original PDFs for exact course definitions.
-const cards = [
- {topic:'docencia',label:'Competències docents',q:'Per què són importants les competències docents?',a:'Per orientar la intervenció educativa del professorat. Per preparar l’examen, completa aquesta idea amb les competències i exemples que apareixen als apunts.'},
- {topic:'tasques',label:'Tasques motrius',q:'Quins elements convé aclarir en explicar una tasca motriu?',a:'L’objectiu, l’organització, les normes, el material, l’espai i què han de fer els participants. Contrasta-ho amb la terminologia exacta del document “La teoria de la tasca”.'},
- {topic:'valors',label:'Valors i educació física',q:'Com es poden treballar els valors a través de l’activitat física?',a:'Dissenyant situacions on es practiquin i es reflexioni sobre valors com el respecte, l’esforç, l’autonomia i la responsabilitat. Consulta els documents específics de cada valor.'},
- {topic:'cooperacio',label:'Cooperació',q:'Què diferencia cooperar de competir individualment?',a:'En una tasca cooperativa, els participants coordinen accions i comparteixen un objectiu comú. Revisa el document de cooperació per ampliar-ne les condicions i exemples.'},
- {topic:'gestio',label:'Gestió de la classe',q:'Què cal preveure per organitzar una sessió d’educació física?',a:'La distribució de l’espai i el material, el temps, les agrupacions, les consignes i les transicions. Relaciona-ho amb el material de gestió de classe.'},
- {topic:'valors',label:'Autonomia i responsabilitat',q:'Com pots fomentar l’autonomia de l’alumnat?',a:'Donant oportunitats per prendre decisions adequades, assumir responsabilitats i revisar el propi procés, amb pautes ajustades al grup i a la tasca.'},
- {topic:'valors',label:'Esforç i superació',q:'Què és important quan es treballa l’esforç?',a:'Valorar la implicació i el procés, establir reptes assolibles i ajudar a reflexionar sobre la millora personal, sense reduir-ho tot al resultat final.'},
- {topic:'tasques',label:'Conceptes i relacions',q:'Com estudiar un concepte teòric per a l’examen?',a:'Defineix-lo amb precisió, explica’l amb paraules pròpies, relaciona’l amb conceptes propers i prepara un exemple aplicat a l’activitat física.'}
-];
-let filteredCards = cards.slice(), cardIndex = 0, flipped = false;
-function renderFlash(){
- const c = filteredCards[cardIndex % filteredCards.length];
- $('flashTopic').textContent = c.label;
- $('flashQuestion').textContent = c.q;
- $('flashAnswer').textContent = c.a;
- $('flashAnswer').hidden = !flipped;
- $('flashQuestion').hidden = flipped;
- $('flipBtn').textContent = flipped ? 'Torna a la pregunta ↻' : 'Mostra la resposta ↻';
- $('flashCounter').textContent = `Targeta ${cardIndex+1} de ${filteredCards.length}`;
-}
-$('topicFilter').addEventListener('change', e => {
- filteredCards = e.target.value === 'tots' ? cards.slice() : cards.filter(c => c.topic === e.target.value);
- cardIndex = 0; flipped = false; renderFlash();
-});
-$('flipBtn').addEventListener('click', () => {flipped = !flipped; renderFlash();});
-$('nextFlash').addEventListener('click', () => {cardIndex = (cardIndex+1)%filteredCards.length; flipped=false; renderFlash();});
-renderFlash();
-
-// Quiz, 6 general study skills / concepts questions. The content is practice, not claimed as official exam content.
-const questions = [
- {q:'Quin és un bon primer pas per estudiar un concepte?',a:['Memoritzar només el títol','Entendre la definició i explicar-la amb paraules pròpies','Llegir-lo una vegada i passar al següent'],correct:1,why:'Entendre i reformular el concepte ajuda a comprovar si realment l’has assimilat.'},
- {q:'En una tasca motriu, per què convé donar consignes clares?',a:['Perquè el grup entengui què ha de fer i com organitzar-se','Per eliminar qualsevol decisió de l’alumnat','Per no haver d’observar la pràctica'],correct:0,why:'Les consignes han de facilitar la comprensió i l’organització de l’activitat.'},
- {q:'Quina acció encaixa millor amb l’autonomia?',a:['Esperar sempre que el docent decideixi','Prendre decisions adequades dins d’unes pautes clares','Evitar revisar el propi treball'],correct:1,why:'L’autonomia implica poder prendre decisions i assumir-ne la responsabilitat.'},
- {q:'En una activitat cooperativa, quin objectiu és coherent?',a:['Que cada participant treballi sense coordinar-se','Que el grup comparteixi un objectiu i coordini les accions','Que només compti el resultat individual'],correct:1,why:'La cooperació implica coordinació i orientació cap a un objectiu compartit.'},
- {q:'Quina és una manera útil de preparar una resposta d’examen?',a:['Definició, explicació pròpia i exemple aplicat','Només una paraula clau','Copiar el paràgraf sense entendre’l'],correct:0,why:'Una definició precisa més una explicació i un exemple demostra una comprensió més completa.'},
- {q:'Quina és la millor manera d’utilitzar aquests materials?',a:['Substituir completament els apunts originals','Fer servir el test com a únic recurs','Combinar-los amb els PDFs i verificar-hi les definicions'],correct:2,why:'Els apunts originals són la referència principal per a les definicions i els continguts exactes de l’assignatura.'}
-];
-let qi=0, score=0, answered=false;
-$('qTotal').textContent=questions.length;
-function renderQuestion(){
- const q=questions[qi]; answered=false;
- $('qNum').textContent=qi+1; $('quizQuestion').textContent=q.q; $('feedback').textContent=''; $('feedback').className='feedback'; $('nextQuestion').disabled=true;
- $('score').textContent=`Encerts: ${score}`;
- const box=$('answers'); box.innerHTML='';
- q.a.forEach((answer,i)=>{
-  const b=document.createElement('button'); b.className='answer-btn'; b.textContent=answer;
-  b.addEventListener('click',()=>chooseAnswer(i,b)); box.appendChild(b);
- });
- $('nextQuestion').textContent=qi===questions.length-1?'Torna a començar ↻':'Següent pregunta →';
-}
-function chooseAnswer(index){
- if(answered)return; answered=true;
- const q=questions[qi], buttons=[...$('answers').querySelectorAll('button')];
- buttons.forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add('correct');});
- if(index===q.correct){score++;$('feedback').textContent='Correcte! '+q.why;$('feedback').className='feedback good';}
- else{$('feedback').textContent='Encara no. '+q.why;$('feedback').className='feedback bad';buttons[index].classList.add('wrong');}
- $('score').textContent=`Encerts: ${score}`; $('nextQuestion').disabled=false;
-}
-$('nextQuestion').addEventListener('click',()=>{
- if(qi===questions.length-1){qi=0;score=0;}else{qi++;}
- renderQuestion();
-});
-renderQuestion();
-
-// Document search and category filters
-const docCards=[...document.querySelectorAll('.doc')];
+# Replace old document filtering JS with category-aware filtering that hides empty groups.
+old = """const docCards=[...document.querySelectorAll('.doc')];
 function filterDocs(){
  const q=$('docSearch').value.trim().toLocaleLowerCase('ca');
  const cat=$('docFilter').value; let visible=0;
@@ -328,21 +67,52 @@ function filterDocs(){
  $('noDocs').hidden=visible!==0;
  $('docCount').textContent=`${visible} ${visible===1?'document':'documents'}`;
 }
-$('docSearch').addEventListener('input',filterDocs);
-$('docFilter').addEventListener('change',filterDocs);
-filterDocs();
+"""
+new = """const docCards=[...document.querySelectorAll('.doc')];
+const libraryGroups=[...document.querySelectorAll('.library-group')];
+function filterDocs(){
+ const q=$('docSearch').value.trim().toLocaleLowerCase('ca');
+ const cat=$('docFilter').value; let visible=0;
+ docCards.forEach(card=>{
+  const matchText=(card.innerText+' '+card.dataset.search).toLocaleLowerCase('ca').includes(q);
+  const matchCat=cat==='tots'||card.dataset.category===cat;
+  card.hidden=!(matchText&&matchCat); if(!card.hidden)visible++;
+ });
+ libraryGroups.forEach(group=>{
+  const groupCards=[...group.querySelectorAll('.doc')];
+  const groupVisible=groupCards.some(card=>!card.hidden);
+  group.hidden=!groupVisible;
+  if((q || cat!=='tots') && groupVisible) group.open=true;
+  if(!q && cat==='tots') group.open=group.dataset.category==='docencia';
+ });
+ $('noDocs').hidden=visible!==0;
+ $('docCount').textContent=`${visible} ${visible===1?'document':'documents'}`;
+}
+"""
+if old not in html:
+    raise ValueError("No s'ha trobat el bloc de cerca esperat")
+html = html.replace(old, new)
 
-// A simple study plan generator
-$('makePlan').addEventListener('click',()=>{
- const topic=$('studyTopic').value, time=Number($('studyTime').value);
- const read=Math.max(4,Math.round(time*.35)), recall=Math.max(4,Math.round(time*.35)), check=time-read-recall;
- $('planOutput').hidden=false;
- $('planOutput').innerHTML=`<strong>El teu pla de ${time} minuts: ${topic}</strong><ol><li><b>${read} min · Comprèn:</b> llegeix el document relacionat i subratlla idees clau.</li><li><b>${recall} min · Recupera:</b> tanca els apunts i explica el tema amb paraules pròpies; prova les targetes.</li><li><b>${Math.max(1,check)} min · Comprova:</b> torna als PDFs, corregeix buits i escriu una pregunta que encara et costi respondre.</li></ol><small>Consell: prioritza les definicions, els esquemes i els exemples que el professorat hagi destacat.</small>`;
-});
-</script>
-</body>
-</html>
-'''
-path = Path("/mnt/data/index.html")
+# Add styles for accordion folders.
+css_anchor = ".doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}"
+css_add = """
+.library-groups{display:grid;gap:12px}
+.library-group{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 5px 16px #17223606}
+.library-group[hidden]{display:none}
+.library-group summary{list-style:none;display:flex;align-items:center;gap:12px;padding:17px 19px;cursor:pointer;font-weight:850}
+.library-group summary::-webkit-details-marker{display:none}
+.library-group summary:hover{background:#faf9ff}
+.folder-icon{font-size:21px}
+.group-title{flex:1;font-size:14px}
+.group-count{font-size:11px;color:var(--muted);font-weight:750;background:#f1f3f8;border-radius:999px;padding:5px 9px}
+.chevron{font-size:20px;color:var(--violet);transition:transform .2s}
+.library-group[open] .chevron{transform:rotate(180deg)}
+.library-group .doc-grid{padding:0 15px 15px;grid-template-columns:repeat(3,1fr)}
+"""
+html = html.replace(css_anchor, css_anchor + "\n" + css_add)
+
+# Update document count from 12 to 12? Existing library lists 12 total (2+6+2+1+1=12).
+# Ensure document search and category selectors stay compatible.
+
 path.write_text(html, encoding="utf-8")
-print(f"Fitxer creat: {path} ({len(html):,} caràcters)")
+print(f"Fitxer actualitzat: {path} ({len(html):,} caràcters)")
