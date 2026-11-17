@@ -177,7 +177,7 @@ main{padding:25px 16px 50px}
 <article class="panel" id="flashcards">
 <h3>Targetes de memòria</h3><p class="panel-intro">Llegeix la pregunta, intenta respondre i després gira la targeta.</p>
 <div class="tool-box"><label for="topicFilter">Filtra per tema</label><select id="topicFilter">
-<option value="tots">Tots els temes</option><option value="docencia">Competències docents</option><option value="tasques">Tasques motrius</option><option value="valors">Valors i educació física</option><option value="gestio">Gestió de la classe</option><option value="models">Models pedagògics</option>
+<option value="tots">Tots els temes</option><option value="docencia">Competències docents</option><option value="tasques">Tasques motrius</option><option value="valors">Valors i educació física</option><option value="models">Models pedagògics</option>
 </select></div>
 <div class="flashcard">
 <div><div class="flash-label" id="flashTopic">Concepte clau</div><div class="flash-question" id="flashQuestion"></div><p class="flash-answer" id="flashAnswer" hidden></p></div>
@@ -206,14 +206,15 @@ main{padding:25px 16px 50px}
 <section class="section" id="biblioteca">
 <div class="section-head"><div><div class="kicker">Materials de classe</div><h2>Biblioteca de documents</h2><p>Cerca per títol o filtra per categoria. Obre els PDFs originals del repositori.</p></div><span class="tag" id="docCount">18 documents</span></div>
 <div class="searchbar"><input type="search" id="docSearch" placeholder="🔎 Cerca un document o tema..." aria-label="Cerca documents"><select id="docFilter" aria-label="Filtra per categoria">
-<option value="tots">Totes les categories</option><option value="docencia">Competències docents</option><option value="valors">Valors i respecte</option><option value="tasques">Tasques i conceptes</option><option value="gestio">Gestió de la classe</option><option value="models">Models pedagògics</option>
+<option value="tots">Totes les categories</option><option value="docencia">Competències docents</option><option value="valors">Valors i respecte</option><option value="tasques">Tasques i conceptes</option><option value="models">Models pedagògics</option>
 </select></div>
 
 <div class="library-groups" id="docGrid">
 <details class="library-group" data-category="docencia" open>
-<summary><span class="folder-icon">📁</span><span class="group-title">01. Competències docents</span><span class="group-count">2 documents</span><span class="chevron">⌄</span></summary>
+<summary><span class="folder-icon">📁</span><span class="group-title">01. Competències docents</span><span class="group-count">3 documents</span><span class="chevron">⌄</span></summary>
 <div class="doc-grid">
-<article class="doc" data-category="docencia" data-search="10 competencias docentes blazquez professor competències docents"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>10 competencias docentes · Blázquez</h3><p>Material sobre les competències docents.</p><a href="10%20competencias%20docentes%20Blazquez%20S%20(1).pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+<article class="doc" data-category="docencia" data-search="10 competencias docentes blazquez professor competències docents"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span><article class="doc" data-category="docencia" data-search="gestion clase educacion fisica sebastiani 2011 gestió"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Gestió</span></div><h3>La gestión de la clase de EF · Sebastiani (2011)</h3><p>Document sobre la gestió de la classe d'educació física.</p><a href="La%20gesti%C3%B3n%20de%20la%20clase%20de%20EF%20Sebastiani%202011.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
+</div><h3>10 competencias docentes · Blázquez</h3><p>Material sobre les competències docents.</p><a href="10%20competencias%20docentes%20Blazquez%20S%20(1).pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
 <article class="doc" data-category="docencia" data-search="principis competencies docents part 1 professorat"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Docència</span></div><h3>Principis de les competències docents · part 1</h3><p>Material sobre els principis de les competències docents.</p><a href="Principis%20de%20les%20competencies%20docents%20part%201.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
 </div>
 </details>
@@ -238,15 +239,8 @@ main{padding:25px 16px 50px}
 </div>
 </details>
 
-<details class="library-group" data-category="gestio">
-<summary><span class="folder-icon">📁</span><span class="group-title">04. Gestió de l'aula</span><span class="group-count">1 document</span><span class="chevron">⌄</span></summary>
-<div class="doc-grid">
-<article class="doc" data-category="gestio" data-search="gestion clase educacion fisica sebastiani 2011 gestió"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Gestió</span></div><h3>La gestión de la clase de EF · Sebastiani (2011)</h3><p>Document sobre la gestió de la classe d'educació física.</p><a href="La%20gesti%C3%B3n%20de%20la%20clase%20de%20EF%20Sebastiani%202011.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
-</div>
-</details>
-
 <details class="library-group" data-category="models">
-<summary><span class="folder-icon">📁</span><span class="group-title">05. Models pedagògics</span><span class="group-count">5 documents</span><span class="chevron">⌄</span></summary>
+<summary><span class="folder-icon">📁</span><span class="group-title">04. Models pedagògics</span><span class="group-count">5 documents</span><span class="chevron">⌄</span></summary>
 <div class="doc-grid">
 <article class="doc" data-category="models" data-search="S19 models pedagogics generalitats models pedagògics"><div class="doc-top"><span class="pdf-icon">PDF</span><span class="doc-type">Models pedagògics</span></div><h3>S19 · Models pedagògics: generalitats</h3><p>Document introductori sobre els models pedagògics.</p><a href="Models%20pedag%C3%B2gics/S19_Models_Pedag%C3%B2gics_Generalitats.pdf" target="_blank" rel="noopener">Obrir document ↗</a></article>
 
@@ -292,7 +286,7 @@ const cards=[
 {topic:'tasques',label:'Tasques motrius',q:'Quins elements convé aclarir en explicar una tasca motriu?',a:'L’objectiu, l’organització, les normes, el material, l’espai i què han de fer els participants. Contrasta-ho amb el document La teoria de la tasca.'},
 {topic:'valors',label:'Valors i educació física',q:'Com es poden treballar els valors a través de l’activitat física?',a:'Dissenyant situacions on es practiquin i es reflexioni sobre valors com el respecte, l’esforç, l’autonomia i la responsabilitat.'},
 {topic:'valors',label:'Cooperació',q:'Què diferencia cooperar de competir individualment?',a:'En una tasca cooperativa, els participants coordinen accions i comparteixen un objectiu comú.'},
-{topic:'gestio',label:'Gestió de la classe',q:'Què cal preveure per organitzar una sessió d’educació física?',a:'La distribució de l’espai i el material, el temps, les agrupacions, les consignes i les transicions.'},
+{topic:'docencia',label:'Gestió de la classe',q:'Què cal preveure per organitzar una sessió d’educació física?',a:'La distribució de l’espai i el material, el temps, les agrupacions, les consignes i les transicions.'},
 {topic:'valors',label:'Autonomia i responsabilitat',q:'Com pots fomentar l’autonomia de l’alumnat?',a:'Donant oportunitats per prendre decisions adequades, assumir responsabilitats i revisar el propi procés.'},
 {topic:'valors',label:'Esforç i superació',q:'Què és important quan es treballa l’esforç?',a:'Valorar la implicació i el procés, establir reptes assolibles i reflexionar sobre la millora personal.'},
 {topic:'tasques',label:'Conceptes i relacions',q:'Com estudiar un concepte teòric per a l’examen?',a:'Defineix-lo amb precisió, explica’l amb paraules pròpies, relaciona’l amb conceptes propers i prepara un exemple.'}
