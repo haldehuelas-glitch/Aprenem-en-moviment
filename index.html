@@ -130,6 +130,43 @@ main{padding:25px 16px 50px}
 .exam-banner{grid-template-columns:1fr}
 }
 [hidden]{display:none!important}
+
+/* Apartat d'autoria: afegit sense modificar els estils existents */
+.footer-about{max-width:1180px;margin:26px auto 0;padding-top:24px;border-top:1px solid #ffffff24;text-align:left}
+.footer-about h2{color:white;font-size:22px;margin:0 0 8px}
+.footer-intro{max-width:800px;margin:0 auto 18px;color:#c4d0e1}
+.author-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.author-card{background:#ffffff0c;border:1px solid #ffffff20;border-radius:14px;padding:14px;min-width:0}
+.author-card strong{display:block;color:white;margin-bottom:5px}
+.author-card a{color:#c7f36b;text-decoration:none;overflow-wrap:anywhere;font-size:12px}
+@media(max-width:850px){.author-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.author-grid{grid-template-columns:1fr}}
+
+
+
+/* Webgrafia: fonts utilitzades per elaborar els continguts */
+.webography{max-width:1180px;margin:34px auto 0;padding-top:28px;border-top:1px solid #ffffff24;text-align:left}
+.webography h2{color:white;font-size:22px;margin:0 0 8px}
+.webography-intro{max-width:850px;margin:0 auto 18px;color:#c4d0e1}
+.webography-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.webography-card{background:#ffffff0c;border:1px solid #ffffff20;border-radius:14px;padding:16px;min-width:0}
+.webography-card h3{color:white;font-size:15px;margin:0 0 8px}
+.webography-card p{color:#c4d0e1;font-size:12px;line-height:1.6;margin:0}
+.webography-label{display:inline-block;color:#c7f36b;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+@media(max-width:600px){.webography-grid{grid-template-columns:1fr}}
+
+/* Recursos externs: secció de lluminositat */
+.external-resources{max-width:1180px;margin:34px auto 0;padding-top:28px;border-top:1px solid #ffffff24;text-align:left}
+.external-resources h2{color:white;font-size:22px;margin:0 0 8px}
+.external-intro{max-width:850px;margin:0 auto 18px;color:#c4d0e1}
+.external-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.external-card{background:#ffffff0c;border:1px solid #ffffff20;border-radius:14px;padding:16px;min-width:0}
+.external-card h3{color:white;font-size:15px;margin:0 0 8px}
+.external-card p{color:#c4d0e1;font-size:12px;line-height:1.6;margin:0 0 10px}
+.external-card a{color:#c7f36b;text-decoration:none;font-weight:750;overflow-wrap:anywhere}
+.external-date{color:#9eabc0;font-size:10px;margin-top:10px}
+@media(max-width:600px){.external-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -294,7 +331,38 @@ main{padding:25px 16px 50px}
 </section>
 </main>
 
-<footer><strong>Aprenem en moviment</strong><br>Pedagogia i principis didàctics de l'activitat física i l'esport · 2n CAFE</footer>
+<footer><strong>Aprenem en moviment</strong><br>Pedagogia i principis didàctics de l'activitat física i l'esport · 2n CAFE
+
+<section class="external-resources" aria-labelledby="external-resources-title">
+<h2 id="external-resources-title">🔗 Recursos externs i enllaços d'interès</h2>
+<p class="external-intro">Explora altres recursos i institucions relacionades amb la pedagogia, l'educació física i l'activitat física i l'esport.</p>
+<div class="external-grid">
+
+<div class="external-card"><h3>📚 XTEC · Recursos d'Educació Física</h3><p>Recull de recursos, experiències i materials didàctics per a l'educació física escolar.</p><a href="https://xtec.gencat.cat/ca/recursos/edfisica/" target="_blank" rel="noopener noreferrer">Explorar recursos XTEC ↗</a><div class="external-date">Consulta: 24/11/2026</div></div>
+<div class="external-card"><h3>🏃 DEFC · Recursos d'Educació Física</h3><p>Dossiers i propostes pràctiques per promoure una educació física inclusiva, activa i educativa.</p><a href="https://www.defc.cat/recursos/" target="_blank" rel="noopener noreferrer">Consultar recursos DEFC ↗</a><div class="external-date">Consulta: 24/11/2026</div></div>
+<div class="external-card"><h3>⚖️ INEFC · Igualtat i esport</h3><p>Recursos sobre coeducació, perspectiva de gènere, igualtat i prevenció de l'assetjament en l'activitat física i l'esport.</p><a href="https://inefc.gencat.cat/ca/inefc_barcelona/coneix_inefc/comissio_igualtat/recursos/" target="_blank" rel="noopener noreferrer">Consultar recursos INEFC ↗</a><div class="external-date">Consulta: 24/11/2026</div></div>
+<div class="external-card"><h3>🏫 TecnoCampus · Pla d'estudis CAFE</h3><p>Informació institucional sobre el grau CAFE i les assignatures del pla d'estudis, inclosa Pedagogia a segon curs.</p><a href="https://blocs.tecnocampus.cat/pla-destudis" target="_blank" rel="noopener noreferrer">Consultar el pla d'estudis ↗</a><div class="external-date">Consulta: 24/11/2026</div></div>
+</div></section>
+
+<section class="webography" aria-labelledby="webography-title">
+<h2 id="webography-title">📖 Webgrafia</h2>
+<p class="webography-intro">Materials i fonts de consulta que han servit de base per elaborar i desenvolupar els continguts d'Aprenem en moviment.</p>
+<div class="webography-grid">
+<div class="webography-card"><span class="webography-label">Materials docents</span><h3>Competències docents · Blázquez i Sebastiani</h3><p>Documents de l'assignatura de Pedagogia utilitzats per treballar el perfil, les competències i la pràctica docent.</p></div>
+<div class="webography-card"><span class="webography-label">Materials docents</span><h3>Valors de l'esport</h3><p>Materials de l'assignatura sobre els valors educatius de l'esport i la seva aplicació en contextos d'activitat física.</p></div>
+<div class="webography-card"><span class="webography-label">Materials docents</span><h3>Models pedagògics</h3><p>Documents de consulta sobre diferents models pedagògics i les seves aplicacions en l'educació física.</p></div>
+</div>
+</section>
+<section class="footer-about" aria-labelledby="footer-authors-title">
+<h2 id="footer-authors-title">Sobre nosaltres</h2>
+<p class="footer-intro">Web educativa creada per estudiants del grau en Ciències de l'Activitat Física i de l'Esport (CAFE), amb l'objectiu de reunir recursos, facilitar el repàs i ajudar a estudiar l'assignatura de pedagogia.</p>
+<div class="author-grid">
+<div class="author-card"><strong>Adam Baos</strong><a href="mailto:abaosb@edu.tecnocampus.cat">abaosb@edu.tecnocampus.cat</a></div>
+<div class="author-card"><strong>Iván Toledano</strong><a href="mailto:itoledanog@edu.tecnocampus.cat">itoledanog@edu.tecnocampus.cat</a></div>
+<div class="author-card"><strong>Roberto Carlino</strong><a href="mailto:rcarlinon@edu.tecnocampus.cat">rcarlinon@edu.tecnocampus.cat</a></div>
+<div class="author-card"><strong>Hugo Aldehuela</strong><a href="mailto:haldehuelas@edu.tecnocampus.cat">haldehuelas@edu.tecnocampus.cat</a></div>
+</div>
+</section></footer>
 
 <script>
 const $=id=>document.getElementById(id);
